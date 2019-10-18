@@ -1,0 +1,80 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import glob
+
+
+# ----- Uses the glob module to combine multiple csvs -----
+files = glob.glob("states*.csv")
+us_census = []
+for file in files:
+  data = pd.read_csv(file)
+  us_census.append(data)
+us_census = pd.concat(us_census)
+# ----- Concatenate lists into a sinle dataframe ----------
+
+
+
+
+
+
+
+"""
+State might need to be str
+Income needs to be float / int
+Each ethnicity must be float (probably rounded)
+GenderPop can probably be split into 2 columns
+Gender (male / female)
+Population of each (int) *one appears to be nan*
+"""
+
+# ----- uses regex and replace to remove certain symbology ------
+# ----- used when columns need to be converted to_numeric -------
+us_census.Income = us_census['Income'].replace('[\$]', "", regex=True)
+us_census.Income = pd.to_numeric(us_census.Income)
+
+
+# ---- Split a column on a delimiter, Expand seperates into columns -----
+genderPop = us_census.GenderPop.str.split('(_)', expand=True)
+us_census['Male'] = genderPop[0]
+us_census['Female'] = genderPop[2]
+
+
+
+us_census.Male = us_census.Male.replace('[M]', "", regex=True)
+us_census.Female = us_census.Female.replace('[F]', "", regex=True)
+us_census.Male = pd.to_numeric(us_census.Male)
+us_census.Female = pd.to_numeric(us_census.Female)
+
+
+# ---- Working out reasonable filler for nan vales
+female_pop_nan = us_census.TotalPop - us_census.Male
+us_census.Female.fillna(female_pop_nan, inplace=True)
+us_census = us_census.drop_duplicates()
+
+
+
+# avg_income = np.mean(us_census.Income)
+# plt.scatter(us_census.Income, us_census.Female)
+# plt.show()
+
+
+# ----- selects all columns that are type:object ------ 
+objects = us_census.select_dtypes(['object']).columns
+objects = objects.delete([0, 7]) # ---- deletes unwanted columns that are not needed for type conversion ----------
+for column in objects: # --- applies a regex replace and to_numeric on each 'object' in objects list ---------
+  us_census[column] = us_census[column].replace('[\%]', "", regex=True)
+  us_census[column] = pd.to_numeric(us_census[column])
+  
+
+for race in objects:
+  us_census[race].fillna(0, inplace=True)
+
+us_census = us_census.drop_duplicates()
+
+plt.hist(us_census.Hispanic, bins=10, label='Hispanic')
+plt.hist(us_census.White, bins=10, label='White', alpha=0.4)
+plt.hist(us_census.Asian, bins=10, label='Asian', alpha=0.4)
+
+plt.legend()
+plt.show()
