@@ -1,0 +1,83 @@
+import seaborn
+import matplotlib.pyplot as plt
+"""
+This is the basis for implementing linear regression in Python
+It indicates what scikit-learn does under the hood
+
+If we take the equation of a line to be y = mx + c where:
+m = slope
+c = y intercept
+"""
+
+
+def get_gradient_at_c(x, y, c, m):
+
+"""
+Given points x and y, find the gradient m at the intercept c
+A way to find the gradient descent for the intercept c
+"""
+
+
+  N = len(x)
+  diff = 0
+  for i in range(N):
+    x_val = x[i]
+    y_val = y[i]
+    diff += (y_val - ((m * x_val) + c))
+  c_gradient = -(2/N) * diff  
+  return c_gradient
+
+def get_gradient_at_m(x, y, c, m):
+"""
+Gradient descent for the slope m
+"""
+  N = len(x)
+  diff = 0
+  for i in range(N):
+      x_val = x[i]
+      y_val = y[i]
+      diff += x_val * (y_val - ((m * x_val) + c))
+  m_gradient = -(2/N) * diff  
+  return m_gradient
+
+def step_gradient(c_current, m_current, x, y, learning_rate):
+
+"""
+Finds optimal slope to minimise loss based on previous 'get_gradient' functions
+- Introduces 'learning rate' (size of step when graduating through slopes)
+-- Small learning rate == too long for convergence
+-- Large learning rate == might skip best value / might never converge
+"""
+
+
+    c_gradient = get_gradient_at_c(x, y, c_current, m_current)
+    m_gradient = get_gradient_at_m(x, y, c_current, m_current)
+    c = c_current - (learning_rate * c_gradient)
+    m = m_current - (learning_rate * m_gradient)
+    return [c, m]
+    
+def gradient_descent(x, y, learning_rate, num_iterations):
+
+"""
+Finds optimal line that minimises loss by stepping through gradients
+Returns list of intercepts and slopes that can be plotted
+"""
+  c = 0
+  m = 0
+  for i in range(num_iterations):
+    c, m = step_gradient(c, m, x, y, learning_rate)
+  return [c,m]  
+
+
+
+# ---------------------- With Scikit-Learn ----------------------
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+import numpy as np
+
+regr = LinearRegression().fit(x_data, y_data)
+prediction = regr.predict(x_data)
+
+
+
+
