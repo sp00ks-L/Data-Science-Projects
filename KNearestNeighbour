@@ -78,3 +78,22 @@ def find_validation_accuracy(training_set, training_labels, validation_set, vali
  
  results = classifer.predict(unknown)
  
+ 
+ 
+ 
+ 
+ # -------------- K-Nearest Neighbour Regressor --------------
+ 
+ # As part of the classify function. Allows for weighted regression to be calculated
+ # This is based on how close a neighbour is to your unknown point
+   for neighbor in neighbors:
+    title = neighbor[1]
+    rating = movie_ratings[title]
+    neighbor_distance = neighbor[0]
+    numerator += (rating / neighbor_distance)
+    denominator += (1 / neighbor_distance)
+  return (numerator / denominator)
+  
+  
+ 
+ 
