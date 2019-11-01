@@ -60,12 +60,12 @@ Jack = np.array([0.0, 20.0, 0.0, 0.0])
 Rose = np.array([1.0, 17.0, 1.0, 0.0])
 You_2nd = np.array([0.0, 22.0, 0.0, 1.0])
 You_1st = np.array([0.0, 22.0, 1.0, 0.0])
-Erica_2nd = np.array([1.0, 21.0, 0.0, 1.0])
-Erica_1st = np.array([1.0, 21.0, 1.0, 0.0])
+Female_2nd = np.array([1.0, 21.0, 0.0, 1.0])
+Female_1st = np.array([1.0, 21.0, 1.0, 0.0])
 
-passengers = ["Jack", "Rose", "Luke 2nd Class", "Luke 1st Class", "Erica 2nd Class", "Erica 1st Class"]
+passengers = ["Jack", "Rose", "Luke 2nd Class", "Luke 1st Class", "Female 2nd Class", "Female 1st Class"]
 # Combine passenger arrays
-sample_passengers = np.array([Jack, Rose, You_2nd, You_1st, Erica_2nd, Erica_1st])
+sample_passengers = np.array([Jack, Rose, You_2nd, You_1st, Female_2nd, Female_1st])
 
 # Scale the sample passenger features
 sample_passengers = scaler.transform(sample_passengers)
