@@ -1,0 +1,45 @@
+--------- Accuracy ---------
+- Out of the dataset, what proportion where classifed correctly 
+
+                 True Positives + True Negatives
+--------------------------------------------------------------------
+True Positives + True Negatives + False Positives + False Negatives
+
+
+
+
+
+
+--------- Recall ---------
+- The percentage of relevant items found by the classifer
+
+        True Positives
+---------------------------------
+True Positives + False Negatives
+
+
+
+
+
+
+--------- Precision ---------
+- The number of correct predictions compared to the number your classifer predicted would positive
+
+      True Positives
+------------------------------
+True Positives + False Positives
+
+
+
+
+
+
+--------- F1 Score ---------
+- Calculates the harmonic mean of precision and recall
+- Harmonic mean is used because you want the F1 score to be low when either precision or recall is 0
+
+    Precision * Recall
+2 * -------------------
+    Precision + Recall
+    
+    
