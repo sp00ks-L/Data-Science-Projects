@@ -11,7 +11,7 @@ True Positives + True Negatives + False Positives + False Negatives
 
 
 --------- Recall ---------
-- The percentage of relevant items found by the classifer
+- The percentage of relevant items found by the classifier
 
         True Positives
 ---------------------------------
@@ -23,7 +23,7 @@ True Positives + False Negatives
 
 
 --------- Precision ---------
-- The number of correct predictions compared to the number your classifer predicted would positive
+- The number of correct predictions compared to the number your classifier predicted would positive
 
       True Positives
 ------------------------------
