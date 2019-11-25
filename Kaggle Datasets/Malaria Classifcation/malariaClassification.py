@@ -1,5 +1,4 @@
 import numpy as np
-import tensorflow as tf
 import keras
 from keras.utils import to_categorical
 from keras.models import Sequential
@@ -63,18 +62,11 @@ for u in uninfected:
 cells = np.array(data)
 labels = np.array(labels)
 
-# np.save("Cells", cells)
-# np.save("labels", labels)
-#
-# cells = np.load("Cells.npy")
-# labels = np.load("labels.npy")
-
 s = np.arange(cells.shape[0])
 np.random.shuffle(s)
 cells = cells[s]
 labels = labels[s]
 num_classes = len(np.unique(labels))
-len_data = len(cells)
 
 # Normalisation using np broadcasting then split
 cells = cells.astype('float32') / 255
@@ -125,7 +117,6 @@ def evaluate_model(true_val, pred_val):
     recall = round(true_p / (true_p + false_n), 3)
     precision = round(true_p / (true_p + false_p), 3)
     f1 = round(2 * ((precision * recall) / (precision + recall)), 3)
-    sensitivity = round(true_p / (false_n + true_p), 3)
     auc_score = round(roc_auc_score(test_y, pred_prob), 3)
 
     print("\n Accuracy: {}\n Recall: {}\n Precision: {}\n F1 Score: {}\n AUC Score: {}".format(accuracy, recall,
