@@ -1,3 +1,11 @@
+######################################################################################################################
+#                                                                                                                    #
+#             This is a collection of scripts that aim to investigate the movement data in the NFL dataset           #
+#                                                                                                                    #
+######################################################################################################################
+
+
+
 import pandas as pd
 import numpy as np
 from scipy import maximum
